@@ -1,30 +1,36 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-3">
+        <h4>{{ $store.getters.userPrice }}</h4>
+        <div class="form-group">
+          <input type="text" name="form-control" v-model="newPrice" />
+        </div>
+        <button @click="setNewPrice" class="mt-3 btn btn-primary btn-sm me-2">
+          Set Price
+        </button>
+      </div>
+    </div>
   </div>
-  <router-view/>
 </template>
+<script>
+import childA from "@/components/childA";
+export default {
+  components: {
+    childA,
+  },
+  data() {
+    return {
+      newPrice: 0,
+    };
+  },
+  methods: {
+    setNewPrice() {
+      // this.$store.state.incoming_price = this.newPrice;
+      this.$store.commit("setIncomingPrice", this.newPrice);
+    },
+  },
+  created() {},
+};
+</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
